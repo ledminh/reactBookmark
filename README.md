@@ -1,11 +1,11 @@
-# jsTypingGame
+# reactBookmark
 
-A simple game to practice typing on computer keyboard.
+A bookmark app used to save interesting articles/website on the Internet.
 
 ## TECHS USED
 
-Vanila JS, Webpack, lodash library.
+React
 
 ## DEMO
 
-https://ledminh.github.io/typing-fast/
+working in progress ...
