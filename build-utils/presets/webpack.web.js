@@ -11,11 +11,43 @@ module.exports = ({mode}) => {
         module: {
             rules: [
                 {
+                    test: /\.?js$/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: "babel-loader",
+                        options: {
+                            presets: [['@babel/preset-env',
+                                        {
+                                            "modules": false,
+                                            "loose": false
+                                        }
+                            
+                                        ],
+                                        
+                                        ['@babel/preset-react', 
+                                            {"runtime": "automatic"}
+                                    
+                                        ]
+                                    ],
+                            "plugins": ["@babel/plugin-proposal-class-properties"]
+
+                        },
+                        
+                    }
+                },
+                
+                {
+                    test: /\.svg$/,
+                    use: ['@svgr/webpack'],
+                },
+
+                {
                     test: /\.css$/,
                     use: mode == 'production'? [MiniCssExtractPlugin.loader, "css-loader"] :["style-loader", "css-loader"]
                 },
+                
                 {
-                    test: /\.(jpe?g|png|mp3|ogg)$/,
+                    test: /\.(jpe?g|png|gif|mp3|ogg)$/,
                     use: [
                         {
                             loader: "url-loader",
@@ -29,7 +61,11 @@ module.exports = ({mode}) => {
         },
 
         plugins: [
-            new HtmlWebpackPlugin(),
+            new HtmlWebpackPlugin({
+                template: './src/index.html',
+                filename: 'index.html',
+                inject: 'body'
+            }),
             ...(mode == 'production'? [new MiniCssExtractPlugin()]: []) 
         ]
     };
